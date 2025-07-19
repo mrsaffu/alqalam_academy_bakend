@@ -11,8 +11,11 @@ app.use(express.static("./public/facultyTemp"))
 app.use(express.json())
 const port = process.env.PORT || 8000;
 
-
-connectMongoDb(process.env.MONGODB_URL, {
+const uri = process.env.MONGODB_URL;
+if(!uri){
+    throw new Error(" MONGODB_URL environment variable is not set");
+}
+connectMongoDb(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   }).then(() => {
