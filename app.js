@@ -9,10 +9,13 @@ const app = express()
 app.use(cors())
 app.use(express.static("./public/facultyTemp"))
 app.use(express.json())
-const port = 8000
+const port = process.env.PORT || 8000;
 
 
-connectMongoDb(process.env.MONGODB_URL).then(() => {
+connectMongoDb(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }).then(() => {
     console.log('MongoDb connected Sucessfully ');
 })
 
@@ -20,7 +23,7 @@ connectMongoDb(process.env.MONGODB_URL).then(() => {
 app.use('/api/faculty', facultyRouter);
 app.use('/api/gallery',galleryRouter)
 
-app.listen(process.env.PORT, (error) => {
+app.listen(port, (error) => {
     if (error) throw error
     console.log(`app is running on port : ${port}`);
 })
