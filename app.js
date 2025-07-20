@@ -33,7 +33,7 @@ app.use('/api/gallery', galleryRouter)
 
 
 app.get('/', (req, res) => {
-    req.send('welcome to alqalam academy Server')
+    res.send('welcome to alqalam academy Server')
 })
 app.listen(port, (error) => {
     if (error) throw error
