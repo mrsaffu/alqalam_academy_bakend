@@ -31,6 +31,10 @@ connectMongoDb(uri, {
 app.use('/api/faculty', facultyRouter);
 app.use('/api/gallery', galleryRouter)
 
+
+app.get('/', (req, res) => {
+    req.send('welcome to alqalam academy Server')
+})
 app.listen(port, (error) => {
     if (error) throw error
     console.log(`app is running on port : ${port}`);
