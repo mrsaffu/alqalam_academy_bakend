@@ -23,7 +23,9 @@ connectMongoDb(uri, {
     useUnifiedTopology: true,
 }).then(() => {
     console.log('MongoDb connected Sucessfully ');
-})
+}).catch((err) => {
+    console.error("MongoDB connection failed:", err);
+});
 
 
 app.use('/api/faculty', facultyRouter);
