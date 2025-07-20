@@ -12,19 +12,22 @@ app.use(express.json())
 const port = process.env.PORT || 8000;
 
 const uri = process.env.MONGODB_URL;
-if(!uri){
-    throw new Error(" MONGODB_URL environment variable is not set");
+if (!uri && process.env.NODE_ENV !== "production") {
+    throw new Error(" MONGODB_URL is not set");
+
 }
+console.log("Using MongoDB URI:", uri ? " Loaded" : " Missing");
+
 connectMongoDb(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-  }).then(() => {
+}).then(() => {
     console.log('MongoDb connected Sucessfully ');
 })
 
 
 app.use('/api/faculty', facultyRouter);
-app.use('/api/gallery',galleryRouter)
+app.use('/api/gallery', galleryRouter)
 
 app.listen(port, (error) => {
     if (error) throw error
